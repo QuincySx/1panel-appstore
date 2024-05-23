@@ -1,0 +1,20 @@
+name: Local-ZeroTier-Planet
+tags:
+    - 工具
+title: 一分钟私有部署 Zerotier-planet 服务
+type: 工具
+description: 具有 Web UI 的 ZeroTier 网络控制器
+additionalProperties:
+    key: localzerotier-planet
+    name: Local-ZeroTier-Planet
+    tags:
+        - Tool
+    shortDescZh: 具有 Web UI 的 ZeroTier 网络控制器
+    shortDescEn: Zerotier network controller with web UI in a Docker container
+    type: tool
+    crossVersionUpdate: true
+    limit: 1
+    recommend: 0
+    website: https://github.com/xubiaolin/docker-zerotier-planet
+    github: https://github.com/xubiaolin/docker-zerotier-planet
+    document: https://github.com/xubiaolin/docker-zerotier-planet
