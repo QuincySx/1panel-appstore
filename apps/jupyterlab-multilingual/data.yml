@@ -1,0 +1,20 @@
+name: JupyterLab-MultiLingual
+tags:
+    - 工具
+title: 支持多语言的 JupyterLab
+type: 工具
+description: 支持 Java、Kotlin、JavaScript、Rust 等多语言的 JupyterLab
+additionalProperties:
+    key: jupyterlab-multilingual
+    name: JupyterLab-MultiLingual
+    tags:
+        - DevTool
+    shortDescZh: 支持 Java、Kotlin、JavaScript、Rust 等多语言的 JupyterLab
+    shortDescEn: Interactive computing environment that supports multiple programming languages
+    type: tool
+    crossVersionUpdate: true
+    limit: 1
+    recommend: 0
+    website: https://jupyter.org
+    github: https://github.com/jupyter
+    document: https://jupyter-notebook.readthedocs.io/en/stable/

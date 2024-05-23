@@ -1,0 +1,38 @@
+version: "3"
+
+x-logging: &x-logging
+  logging:
+    driver: "json-file"
+    options:
+      max-file: "5"
+      max-size: "10m"
+
+services:
+  jupyterlab-multilingual:
+    build:
+      dockerfile: Dockerfile
+    # container_name: jupyterlab
+    container_name: ${CONTAINER_NAME}
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPUS}
+          memory: ${MEMORY_LIMIT}
+    restart: always
+    networks:
+      - 1panel-network
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/home/jovyan/work
+    labels:
+      createdBy: "Apps"
+    user: root
+    environment:
+      - GRANT_SUDO=yes
+      - CHOWN_HOME=yes
+      # - JUPYTER_TOKEN=1111
+      - JUPYTER_TOKEN=${PANEL_ROOT_PASSWORD}
+networks:
+  1panel-network:
+    external: true
