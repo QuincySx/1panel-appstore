@@ -50,6 +50,10 @@ RUN curl -Ls https://sh.jbang.dev | bash -s - app setup
 # RUN cargo install evcxr_jupyter && \
 #     $USER_HOME/.cargo/bin/evcxr_jupyter --install
 
+# 升级 jupyter
+RUN pip install --upgrade pip && \
+    pip install --upgrade jupyter jupyterlab notebook
+
 # 清理步骤
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ENV PATH $USER_HOME/.jbang/bin:$PATH
