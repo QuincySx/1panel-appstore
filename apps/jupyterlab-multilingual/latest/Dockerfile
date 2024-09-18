@@ -25,7 +25,7 @@ RUN rm -rf $USER_HOME/.local/share/mise/downloads
 
 # 安装 Deno 和 Deno Kernel
 ENV PATH $USER_HOME/.local/share/mise/installs/deno/latest/bin:$PATH
-RUN deno jupyter --unstable --install && \
+RUN deno jupyter --install && \
     chmod -R 777 $USER_HOME/.local/share/jupyter && \
     rm -f $USER_HOME/install.py
 
