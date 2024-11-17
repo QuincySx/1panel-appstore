@@ -1,0 +1,19 @@
+name: Sub-Store
+tags:
+    - 工具
+title: 订阅管理器
+description: 高级订阅管理器
+additionalProperties:
+    key: sub-store
+    name: Sub-Store
+    tags:
+        - Tool
+    shortDescZh: 高级订阅管理器
+    shortDescEn: Advanced Subscription Manager
+    type: tool
+    crossVersionUpdate: true
+    limit: 0
+    recommend: 0
+    website: https://hub.docker.com/r/xream/sub-store
+    github: https://github.com/sub-store-org/Sub-Store
+    document: https://www.notion.so/Sub-Store-6259586994d34c11a4ced5c406264b46
