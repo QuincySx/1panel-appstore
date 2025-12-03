@@ -10,8 +10,13 @@ x-logging: &x-logging
 services:
   jupyterlab-multilingual:
     build:
+      args:
+          ENABLE_DENO: "true"
+          ENABLE_GO: "true"
+          ENABLE_JAVA: "true"
+          ENABLE_RUST: "true"
+      context: .
       dockerfile: Dockerfile
-    # container_name: jupyterlab
     container_name: ${CONTAINER_NAME}
     deploy:
       resources:
