@@ -29,7 +29,7 @@ ARG ENABLE_GO=true
 ARG ENABLE_JAVA=true
 
 # 第一阶段：构建
-FROM jupyter/base-notebook:latest as builder
+FROM quay.io/jupyter/base-notebook:2025-12-15 as builder
 
 # 传递 ARG 到构建阶段
 ARG ENABLE_DENO
