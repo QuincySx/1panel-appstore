@@ -1,0 +1,290 @@
+# 服务监听地址，留空表示监听所有网卡（IPv4 + IPv6）
+# 设置为 "127.0.0.1" 或 "localhost" 可限制仅本机访问
+host: ""
+
+# 服务端口
+port: 8317
+
+# TLS/HTTPS 设置，启用后服务将使用提供的证书和密钥进行 HTTPS 监听
+tls:
+  enable: false
+  cert: ""
+  key: ""
+
+# 管理面板设置
+remote-management:
+  # 是否允许远程访问管理接口（false 时仅本机可访问，但仍需要密钥）
+  allow-remote: true
+
+  # 管理密钥，填写明文会在启动时自动哈希
+  # 所有管理请求（包括本机）都需要此密钥
+  # 留空则完全禁用管理接口（所有 /v0/management 路由返回 404）
+  secret-key: ""
+
+  # 设为 true 时禁用内置管理面板的资源下载和 HTTP 路由
+  disable-control-panel: false
+
+  # 管理面板的 GitHub 仓库地址，支持仓库 URL 或 releases API URL
+  panel-github-repository: "https://github.com/router-for-me/Cli-Proxy-API-Management-Center"
+
+# 认证数据目录（支持 ~ 表示用户主目录）
+auth-dir: "~/.cli-proxy-api"
+
+# API 密钥，客户端连接时需要提供
+api-keys:
+  - "your-api-key-1"
+  - "your-api-key-2"
+  - "your-api-key-3"
+
+# 开启调试日志
+debug: false
+
+# pprof 性能分析服务器，建议绑定到 localhost
+pprof:
+  enable: false
+  addr: "127.0.0.1:8316"
+
+# 设为 true 时禁用高开销的 HTTP 中间件功能，减少高并发下的单请求内存占用
+commercial-mode: false
+
+# 使用无痕/隐私浏览模式打开 OAuth 授权链接
+# 适用于需要用不同账号登录而不想退出当前会话的场景
+# 默认: false（Kiro 认证默认为 true 以支持多账号）
+incognito-browser: true
+
+# 设为 true 时将日志写入滚动文件而非标准输出
+logging-to-file: false
+
+# 日志目录的最大总大小（MB），超出后自动删除最旧的日志文件，设为 0 禁用
+logs-max-total-size-mb: 0
+
+# 请求日志禁用时保留的错误日志文件最大数量，超出后删除最旧的，默认 10，设为 0 禁用清理
+error-logs-max-files: 10
+
+# 设为 false 时禁用内存中的使用统计聚合
+usage-statistics-enabled: false
+
+# 代理地址，支持 socks5/http/https 协议
+# 示例: socks5://user:pass@192.168.1.1:1080/
+proxy-url: ""
+
+# 设为 true 时，无前缀的模型请求仅使用没有前缀的凭据（前缀等于模型名称时除外）
+force-model-prefix: false
+
+# 设为 true 时，将过滤后的上游响应头转发给下游客户端
+passthrough-headers: false
+
+# 请求失败重试次数（针对 403/408/500/502/503/504 状态码）
+request-retry: 3
+
+# 冷却中的凭据最大等待时间（秒），超出后触发重试
+max-retry-interval: 30
+
+# 配额用尽时的行为
+quota-exceeded:
+  switch-project: true       # 配额用尽时自动切换到其他项目
+  switch-preview-model: true # 配额用尽时自动切换到预览模型
+
+# 多凭据匹配时的路由策略
+routing:
+  strategy: "round-robin" # round-robin（轮询，默认）, fill-first（填满优先）
+
+# 设为 true 时为 WebSocket API（/v1/ws）启用认证
+ws-auth: false
+
+# 大于 0 时，每 N 秒为非流式响应发送空行以防止空闲超时
+nonstream-keepalive-interval: 0
+
+# 流式响应行为（SSE 保活 + 安全引导重试）
+# streaming:
+#   keepalive-seconds: 15   # 默认: 0（禁用），<= 0 禁用保活
+#   bootstrap-retries: 1    # 默认: 0（禁用），首字节发送前的重试次数
+
+# ============================================
+# 以下为各提供商的 API 密钥配置示例
+# 取消注释并填入你的密钥即可启用
+# ============================================
+
+# Gemini API 密钥
+# gemini-api-key:
+#   - api-key: "AIzaSy...01"
+#     prefix: "test"                                    # 可选: 需要类似 "test/gemini-3-pro-preview" 的调用才能匹配此凭据
+#     base-url: "https://generativelanguage.googleapis.com"
+#     headers:
+#       X-Custom-Header: "custom-value"
+#     proxy-url: "socks5://proxy.example.com:1080"      # 可选: 单独为此密钥设置代理
+#     models:                                           # 可选: 模型名称映射
+#       - name: "gemini-2.5-flash"                      # 上游模型名称
+#         alias: "gemini-flash"                         # 客户端使用的别名
+#     excluded-models:                                  # 可选: 排除特定模型
+#       - "gemini-2.5-pro"                              # 精确匹配
+#       - "gemini-2.5-*"                                # 通配符匹配前缀
+#       - "*-preview"                                   # 通配符匹配后缀
+#       - "*flash*"                                     # 通配符匹配子串
+#   - api-key: "AIzaSy...02"
+
+# Codex API 密钥
+# codex-api-key:
+#   - api-key: "sk-atSM..."
+#     prefix: "test"
+#     base-url: "https://www.example.com"
+#     proxy-url: "socks5://proxy.example.com:1080"
+#     models:
+#       - name: "gpt-5-codex"
+#         alias: "codex-latest"
+#     excluded-models:
+#       - "gpt-5.1"
+
+# Claude API 密钥
+# claude-api-key:
+#   - api-key: "sk-atSM..."                             # 官方 Claude API 密钥，无需设置 base-url
+#   - api-key: "sk-atSM..."
+#     prefix: "test"
+#     base-url: "https://www.example.com"               # 自定义 Claude API 端点
+#     proxy-url: "socks5://proxy.example.com:1080"
+#     models:
+#       - name: "claude-3-5-sonnet-20241022"
+#         alias: "claude-sonnet-latest"
+#     excluded-models:
+#       - "claude-opus-4-5-20251101"
+#     cloak:                                            # 可选: 针对非 Claude Code 客户端的请求伪装
+#       mode: "auto"                                    # "auto"（默认）: 仅非 Claude Code 客户端时伪装
+#                                                       # "always": 始终伪装 / "never": 从不伪装
+#       strict-mode: false                              # false（默认）: 在用户系统消息前添加 Claude Code 提示
+#                                                       # true: 移除所有用户系统消息，仅保留 Claude Code 提示
+#       sensitive-words:                                # 可选: 用零宽字符混淆的敏感词
+#         - "API"
+#         - "proxy"
+#       cache-user-id: true                             # 可选: 设为 true 时复用缓存的 user_id 而非每次随机生成
+
+# Claude API 请求的默认请求头，Claude Code 更新版本时需同步更新
+# 当客户端未发送自己的请求头时作为回退使用
+# claude-header-defaults:
+#   user-agent: "claude-cli/2.1.44 (external, sdk-cli)"
+#   package-version: "0.74.0"
+#   runtime-version: "v24.3.0"
+#   timeout: "600"
+
+# Kiro (AWS CodeWhisperer) 配置
+# 注意: Kiro API 目前仅在 us-east-1 区域运行
+# kiro:
+#   - token-file: "~/.aws/sso/cache/kiro-auth-token.json"  # Kiro token 文件路径
+#     agent-task-type: ""                                   # 可选: "vibe" 或留空（使用 API 默认值）
+#   - access-token: "aoaAAAAA..."                           # 或直接提供 token
+#     refresh-token: "aorAAAAA..."
+#     profile-arn: "arn:aws:codewhisperer:us-east-1:..."
+#     proxy-url: "socks5://proxy.example.com:1080"
+
+# Kilocode (基于 OAuth 的代码助手)
+# 注意: Kilocode 使用 OAuth 设备流认证
+# 使用 CLI 命令登录: ./server --kilo-login
+# 凭据将保存到认证目录（默认: ~/.cli-proxy-api/）
+# oauth-model-alias:
+#   kilo:
+#     - name: "minimax/minimax-m2.5:free"
+#       alias: "minimax-m2.5"
+#     - name: "z-ai/glm-5:free"
+#       alias: "glm-5"
+# oauth-excluded-models:
+#   kilo:
+#     - "kilo-claude-opus-4-6"
+#     - "*:free"
+
+# OpenAI 兼容提供商
+# openai-compatibility:
+#   - name: "openrouter"                                # 提供商名称，会用于 user agent 等处
+#     prefix: "test"
+#     base-url: "https://openrouter.ai/api/v1"
+#     headers:
+#       X-Custom-Header: "custom-value"
+#     api-key-entries:
+#       - api-key: "sk-or-v1-...b780"
+#         proxy-url: "socks5://proxy.example.com:1080"
+#       - api-key: "sk-or-v1-...b781"
+#     models:
+#       - name: "moonshotai/kimi-k2:free"               # 实际模型名称
+#         alias: "kimi-k2"                              # API 中使用的别名
+
+# Vertex API 密钥（Vertex 兼容端点，使用 API 密钥 + base URL）
+# vertex-api-key:
+#   - api-key: "vk-123..."
+#     prefix: "test"
+#     base-url: "https://example.com/api"
+#     proxy-url: "socks5://proxy.example.com:1080"
+#     models:
+#       - name: "gemini-2.5-flash"
+#         alias: "vertex-flash"
+#       - name: "gemini-2.5-pro"
+#         alias: "vertex-pro"
+
+# Amp 集成
+# ampcode:
+#   upstream-url: "https://ampcode.com"                 # Amp CLI OAuth 和管理功能的上游 URL
+#   upstream-api-key: ""                                # 可选: 覆盖 Amp 上游的 API 密钥
+#   # 客户端到上游 API 密钥的映射
+#   # 不同客户端可使用不同的 Amp 账号/配额
+#   upstream-api-keys:
+#     - upstream-api-key: "amp_key_for_team_a"
+#       api-keys:
+#         - "your-api-key-1"
+#         - "your-api-key-2"
+#     - upstream-api-key: "amp_key_for_team_b"
+#       api-keys:
+#         - "your-api-key-3"
+#   restrict-management-to-localhost: false              # 限制管理路由仅本机访问
+#   force-model-mappings: false                         # 强制在检查本地 API 密钥前执行模型映射
+#   # Amp 模型映射
+#   # 将 Amp 不可用的模型路由到本地代理中可用的替代模型
+#   model-mappings:
+#     - from: "claude-opus-4-5-20251101"                # Amp CLI 请求的模型
+#       to: "gemini-claude-opus-4-5-thinking"           # 路由到此替代模型
+#     - from: "claude-sonnet-4-5-20250929"
+#       to: "gemini-claude-sonnet-4-5-thinking"
+#     - from: "claude-haiku-4-5-20251001"
+#       to: "gemini-2.5-flash"
+
+# 全局 OAuth 模型名称别名（按通道）
+# 用于重命名模型列表和请求路由中的模型 ID
+# 支持的通道: gemini-cli, vertex, aistudio, antigravity, claude, codex, qwen, iflow, kiro, github-copilot, kimi
+# 注意: 别名不适用于 gemini-api-key, codex-api-key, claude-api-key, openai-compatibility, vertex-api-key, ampcode
+# oauth-model-alias:
+#   antigravity:
+#     - name: "claude-sonnet-4-5"
+#       alias: "gemini-claude-sonnet-4-5"
+#   gemini-cli:
+#     - name: "gemini-2.5-pro"
+#       alias: "g2.5p"
+#       fork: true                                      # 设为 true 时保留原名并额外添加别名
+#   claude:
+#     - name: "claude-sonnet-4-5-20250929"
+#       alias: "cs4.5"
+
+# OAuth 提供商排除模型
+# 支持的通道: gemini-cli, vertex, aistudio, antigravity, claude, codex, qwen, iflow, kiro, github-copilot
+# oauth-excluded-models:
+#   gemini-cli:
+#     - "gemini-2.5-pro"                                # 精确匹配
+#     - "gemini-2.5-*"                                  # 通配符匹配前缀
+#     - "*-preview"                                     # 通配符匹配后缀
+#     - "*flash*"                                       # 通配符匹配子串
+
+# 请求载荷配置
+# payload:
+#   default:                                            # 默认规则: 仅在参数缺失时设置
+#     - models:
+#         - name: "gemini-2.5-pro"                      # 支持通配符
+#           protocol: "gemini"                          # 限定协议: openai, gemini, claude, codex, antigravity
+#       params:
+#         "generationConfig.thinkingConfig.thinkingBudget": 32768
+#   override:                                           # 覆盖规则: 始终设置参数，覆盖已有值
+#     - models:
+#         - name: "gpt-*"
+#           protocol: "codex"
+#       params:
+#         "reasoning.effort": "high"
+#   filter:                                             # 过滤规则: 从载荷中移除指定参数
+#     - models:
+#         - name: "gemini-2.5-pro"
+#           protocol: "gemini"
+#       params:
+#         - "generationConfig.thinkingConfig.thinkingBudget"

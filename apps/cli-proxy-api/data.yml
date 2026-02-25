@@ -1,0 +1,20 @@
+name: CLIProxyAPI Plus
+tags:
+    - 工具
+title: CLI Proxy API 管理工具
+type: 工具
+description: 支持多种第三方提供商的 CLI Proxy API 服务
+additionalProperties:
+    key: cli-proxy-api
+    name: CLIProxyAPI Plus
+    tags:
+        - Tool
+    shortDescZh: 支持多种第三方提供商的 CLI Proxy API 服务
+    shortDescEn: CLI Proxy API with third-party provider support
+    type: tool
+    crossVersionUpdate: true
+    limit: 0
+    recommend: 0
+    website: https://github.com/router-for-me/CLIProxyAPIPlus
+    github: https://github.com/router-for-me/CLIProxyAPIPlus
+    document: https://github.com/router-for-me/CLIProxyAPIPlus
