@@ -1,12 +1,11 @@
 services:
   openclaw:
-    image: 1panel-openclaw:latest
     build:
+      args:
+        EXTRA_APT_PACKAGES: ${EXTRA_APT_PACKAGES:-}
+        INSTALL_PLAYWRIGHT: ${INSTALL_PLAYWRIGHT:-false}
       context: .
       dockerfile: Dockerfile
-      args:
-        - EXTRA_APT_PACKAGES=${EXTRA_APT_PACKAGES:-}
-        - INSTALL_PLAYWRIGHT=${INSTALL_PLAYWRIGHT:-false}
     container_name: ${CONTAINER_NAME}
     user: ${RUN_USER:-node}
     restart: always
