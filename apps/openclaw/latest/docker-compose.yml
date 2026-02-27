@@ -17,6 +17,7 @@ services:
     environment:
       - HOME=/home/node
       - PLAYWRIGHT_BROWSERS_PATH=/home/node/.cache/ms-playwright
+      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND:-lan}
     volumes:
       - ./data/config:/home/node/.openclaw
       - ./data/workspace:/home/node/.openclaw/workspace

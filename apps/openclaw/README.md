@@ -11,31 +11,29 @@
 
 ## 安装后配置
 
-### 1. 运行初始化向导
+### 1. 访问控制面板
 
-安装完成后，在宿主机执行 onboard 向导完成首次配置（设置模型提供商、API Key 等）：
+安装时会自动生成 Gateway Token，查看方式：
+
+```bash
+cat <应用数据目录>/data/config/.gateway_token
+```
+
+浏览器打开：
+
+```
+http://<服务器IP>:<网关端口>?token=<Token>
+```
+
+### 2. 运行初始化向导
+
+在控制面板中完成首次配置，或通过命令行：
 
 ```bash
 docker exec -it <容器名> openclaw onboard
 ```
 
-### 2. 获取 Dashboard Token
-
-向导完成后，获取 Web 控制面板的访问令牌：
-
-```bash
-docker exec -it <容器名> openclaw dashboard --no-open
-```
-
-### 3. 访问控制面板
-
-浏览器打开：
-
-```
-http://<服务器IP>:<网关端口>?token=<上一步获取的Token>
-```
-
-### 4. 配置聊天渠道（按需）
+### 3. 配置聊天渠道（按需）
 
 ```bash
 # WhatsApp（扫码登录）
@@ -48,7 +46,7 @@ docker exec -it <容器名> openclaw channels add --channel telegram --token "<B
 docker exec -it <容器名> openclaw channels add --channel discord --token "<Bot Token>"
 ```
 
-### 5. 设备授权
+### 4. 设备授权
 
 如有新设备请求访问，可查看并审批：
 

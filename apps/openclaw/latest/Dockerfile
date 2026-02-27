@@ -22,8 +22,11 @@ WORKDIR /home/node
 ENV NODE_ENV=production
 ENV HOME=/home/node
 
+COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 USER node
 
 EXPOSE 18789 18790
 
-CMD ["openclaw", "gateway", "--allow-unconfigured", "--bind", "lan", "--port", "18789"]
+ENTRYPOINT ["entrypoint.sh"]

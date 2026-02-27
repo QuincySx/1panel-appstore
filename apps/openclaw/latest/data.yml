@@ -16,6 +16,18 @@ additionalProperties:
           required: true
           rule: paramPort
           type: number
+        - default: lan
+          edit: true
+          envKey: OPENCLAW_GATEWAY_BIND
+          labelEn: Gateway Bind Mode
+          labelZh: 网关绑定模式
+          required: true
+          type: select
+          values:
+              - label: LAN（局域网可访问）
+                value: lan
+              - label: Loopback（仅本机访问）
+                value: loopback
         - default: node
           edit: true
           envKey: RUN_USER
