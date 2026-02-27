@@ -1,0 +1,49 @@
+additionalProperties:
+    formFields:
+        - default: 18789
+          edit: true
+          envKey: PANEL_APP_PORT_HTTP
+          labelEn: Gateway Port
+          labelZh: 网关端口
+          required: true
+          rule: paramPort
+          type: number
+        - default: 18790
+          edit: true
+          envKey: PANEL_APP_PORT_BRIDGE
+          labelEn: Bridge Port
+          labelZh: 桥接端口
+          required: true
+          rule: paramPort
+          type: number
+        - default: node
+          edit: true
+          envKey: RUN_USER
+          labelEn: Run as User
+          labelZh: 运行用户
+          required: true
+          type: select
+          values:
+              - label: node (安全模式)
+                value: node
+              - label: root (可运行时安装软件)
+                value: root
+        - default: "true"
+          edit: true
+          envKey: INSTALL_PLAYWRIGHT
+          labelEn: Install Playwright Chromium
+          labelZh: 安装 Playwright 浏览器
+          required: true
+          type: select
+          values:
+              - label: 安装（支持网页浏览，镜像较大）
+                value: "true"
+              - label: 不安装（镜像更小）
+                value: "false"
+        - default: ""
+          edit: true
+          envKey: EXTRA_APT_PACKAGES
+          labelEn: Extra APT Packages
+          labelZh: 额外系统包
+          required: false
+          type: text

@@ -1,0 +1,20 @@
+name: OpenClaw
+tags:
+    - AI
+title: AI 个人助手网关
+type: AI
+description: 自托管 AI 助手网关，连接 WhatsApp、Telegram、Discord 等聊天应用到 AI 编程代理
+additionalProperties:
+    key: openclaw
+    name: OpenClaw
+    tags:
+        - AI
+    shortDescZh: 自托管 AI 助手网关，支持多渠道多代理
+    shortDescEn: Self-hosted AI assistant gateway with multi-channel support
+    type: tool
+    crossVersionUpdate: true
+    limit: 0
+    recommend: 0
+    website: https://docs.openclaw.ai
+    github: https://github.com/openclaw/openclaw
+    document: https://docs.openclaw.ai/install/docker
