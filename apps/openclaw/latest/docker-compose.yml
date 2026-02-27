@@ -1,5 +1,6 @@
 services:
   openclaw:
+    image: 1panel-openclaw:latest
     build:
       context: .
       dockerfile: Dockerfile
