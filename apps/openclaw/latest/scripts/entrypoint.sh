@@ -10,7 +10,7 @@ BIND_MODE="${OPENCLAW_GATEWAY_BIND:-lan}"
 # For non-loopback bind modes, enable host header origin fallback
 # This is safe because access is already protected by gateway token authentication
 if [ "$BIND_MODE" != "loopback" ]; then
-    SETTINGS_FILE="$HOME/.openclaw/settings.json"
+    SETTINGS_FILE="$HOME/.openclaw/openclaw.json"
     if [ ! -f "$SETTINGS_FILE" ]; then
         echo '{}' > "$SETTINGS_FILE"
     fi
